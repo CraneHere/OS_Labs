@@ -19,12 +19,15 @@ int main(int argc, char **argv) {
     std::string filename(argv[1]);
     std::ofstream file(filename);
 
+
     for (std::string line; std::getline(std::cin, line); ) {
         line.push_back('\n');
-        if (line.length() > 0) {
-            for (size_t i = 0; i < line.length(); ++i) {
+        int len = line.length();
+        if (len > 0) { 
+            for (size_t i = 0; i < len; ++i) {
                 if (isVowel(tolower(line[i]))) {
                     line.erase(i, 1);
+                    --i;
                 }
             }
         }

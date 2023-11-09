@@ -16,26 +16,12 @@ const std::string fileWithInput = "i.txt";
 const std::string fileWithOutput1 = "o1.txt";
 const std::string fileWithOutput2 = "o2.txt";
 
-TEST(Lab1, SimpleTest) {
-    std::array<std::string, 5> input = {
-        "abc",
-        "bebe",
-        "meow",
-        "lo lo",
-        ""
-    };
-
-    std::array<std::string, 2> expOutput1 = {
-        "abc",
-        "lo lo"
-    };
-
-    std::array<std::string, 3> expOutput2 = {
-        "bebe",
-        "meow",
-        ""
-    };
-
+void Check(const TStringVector& input,
+           TStringVector expectedOutput1,
+           TStringVector expectedOutput2,
+           std::string fileWithInput,
+           std::string fileWithOutput1,
+           std::string fileWithOutput2) {
     {
         auto inFile = std::ofstream(fileWithInput);
 
@@ -69,13 +55,13 @@ TEST(Lab1, SimpleTest) {
         output2.push_back(line);
     }
 
-    ASSERT_TRUE(output1.size() == expOutput1.size());
+    ASSERT_TRUE(output1.size() == expectedOutput1.size());
     for (size_t i = 0; i < output1.size(); i++) {
-        EXPECT_EQ(output1[i], expOutput1[i]);
+        EXPECT_EQ(output1[i], expectedOutput1[i]);
     }
-    ASSERT_TRUE(output2.size() == expOutput2.size());
+    ASSERT_TRUE(output2.size() == expectedOutput2.size());
     for (size_t i = 0; i < output2.size(); i++) {
-        EXPECT_EQ(output2[i], expOutput2[i]);
+        EXPECT_EQ(output2[i], expectedOutput2[i]);
     }
 
     auto removeIfExists = [](const std::string& path) {
@@ -87,4 +73,87 @@ TEST(Lab1, SimpleTest) {
     removeIfExists(fileWithInput);
     removeIfExists(fileWithOutput1);
     removeIfExists(fileWithOutput2);
+}
+
+TEST(Lab1, SimpleTest1) {
+    TStringVector input = {
+        "abc",
+        "bebe",
+        "nyaa",
+        "lo lo",
+        ""
+    };
+
+    TStringVector expOutput1 = {
+        "bc",
+        "l l"
+    };
+
+    TStringVector expOutput2 = {
+        "bb",
+        "ny",
+        ""
+    };
+
+    Check(input, expOutput1, expOutput2, "input1.txt", "output11.txt", "output12.txt");
+}
+
+TEST(Lab2, SimpleTest2) {
+    TStringVector input = {
+        "kok",
+        "aabc",
+        "IlOvecOding",
+        "AAAAaaaa"
+    };
+
+    TStringVector expOutput1 = {
+        "kk",
+        "lvcdng"
+    };
+
+    TStringVector expOutput2 = {
+        "bc",
+        ""
+    };
+
+    Check(input, expOutput1, expOutput2, "input2.txt", "output21.txt", "output22.txt");
+}
+
+TEST(Lab3, SimpleTest3) {
+    TStringVector input = {
+        "",
+        "1",
+        "12",
+        "13a",
+        "14AB"
+    };
+
+    TStringVector expOutput1 = {
+        "1",
+        "13"
+    };
+
+    TStringVector expOutput2 = {
+        "",
+        "12",
+        "14B"
+    };
+
+    Check(input, expOutput1, expOutput2, "input3.txt", "output31.txt", "output32.txt");
+}
+
+TEST(Lab4, SimpleTest4) {
+    TStringVector input = {
+
+    };
+
+    TStringVector expOutput1 = {
+
+    };
+
+    TStringVector expOutput2 = {
+        
+    };
+
+    Check(input, expOutput1, expOutput2, "input4.txt", "output41.txt", "output42.txt");
 }
