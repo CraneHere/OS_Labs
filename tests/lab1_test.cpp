@@ -18,10 +18,13 @@ const std::string fileWithOutput2 = "o2.txt";
 
 void Check(const TStringVector& input,
            TStringVector expectedOutput1,
-           TStringVector expectedOutput2,
-           std::string fileWithInput,
-           std::string fileWithOutput1,
-           std::string fileWithOutput2) {
+           TStringVector expectedOutput2) 
+            {
+        
+    const std::string fileWithInput = "input.txt";
+    const std::string fileWithOutput1 = "output1.txt";
+    const std::string fileWithOutput2 = "output2.txt";
+
     {
         auto inFile = std::ofstream(fileWithInput);
 
@@ -95,7 +98,7 @@ TEST(Lab1, SimpleTest1) {
         ""
     };
 
-    Check(input, expOutput1, expOutput2, "input1.txt", "output11.txt", "output12.txt");
+    Check(input, expOutput1, expOutput2);
 }
 
 TEST(Lab2, SimpleTest2) {
@@ -116,7 +119,7 @@ TEST(Lab2, SimpleTest2) {
         ""
     };
 
-    Check(input, expOutput1, expOutput2, "input2.txt", "output21.txt", "output22.txt");
+    Check(input, expOutput1, expOutput2);
 }
 
 TEST(Lab3, SimpleTest3) {
@@ -139,7 +142,7 @@ TEST(Lab3, SimpleTest3) {
         "14B"
     };
 
-    Check(input, expOutput1, expOutput2, "input3.txt", "output31.txt", "output32.txt");
+    Check(input, expOutput1, expOutput2);
 }
 
 TEST(Lab4, SimpleTest4) {
@@ -155,5 +158,5 @@ TEST(Lab4, SimpleTest4) {
         
     };
 
-    Check(input, expOutput1, expOutput2, "input4.txt", "output41.txt", "output42.txt");
+    Check(input, expOutput1, expOutput2);
 }

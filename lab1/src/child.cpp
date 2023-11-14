@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 
 bool isVowel(char c) {
     return c == 'e' ||
@@ -24,12 +25,11 @@ int main(int argc, char **argv) {
         line.push_back('\n');
         int len = line.length();
         if (len > 0) { 
-            for (size_t i = 0; i < len; ++i) {
-                if (isVowel(tolower(line[i]))) {
-                    line.erase(i, 1);
-                    --i;
-                }
-            }
+            line.erase(std::remove_if(line.begin(), line.end(), 
+                [](unsigned char x) 
+                {
+                    return isVowel(tolower(x));
+                }), line.end());
         }
         file << line;
     }

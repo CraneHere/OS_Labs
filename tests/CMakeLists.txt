@@ -1,4 +1,9 @@
+cmake_minimum_required(VERSION 3.27)
+
 include(FetchContent)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 FetchContent_Declare(
         googletest
@@ -14,5 +19,3 @@ add_executable(lab1_test ../lab1/src/parent.cpp lab1_test.cpp)
 target_include_directories(lab1_test PRIVATE ../lab1/include)
 
 target_link_libraries(lab1_test PRIVATE GTest::GTest)
-
-set(CMAKE_CXX_STANDARD 17)

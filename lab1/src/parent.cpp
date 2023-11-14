@@ -56,7 +56,7 @@ void ParentRoutine(const char *pathToChild, std::istream &in) {
             }
 
             close(pipe2_fd[0]);
-            execl(childPath.c_str(), childPath.c_str(), filename2.c_str(), NULL);
+            execl(childPath.c_str(), childPath.c_str(), filename2.c_str(), nullptr);
         }
     } else {
         close(pipe1_fd[1]);
@@ -67,9 +67,9 @@ void ParentRoutine(const char *pathToChild, std::istream &in) {
         }
 
         close(pipe1_fd[0]);
-        execl(childPath.c_str(), childPath.c_str(), filename1.c_str(), NULL);
+        execl(childPath.c_str(), childPath.c_str(), filename1.c_str(), nullptr);
     }
 
-    wait(NULL);
-    wait(NULL);
+    wait(nullptr);
+    wait(nullptr);
 }
