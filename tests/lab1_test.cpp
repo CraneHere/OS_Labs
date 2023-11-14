@@ -36,6 +36,7 @@ void Check(const TStringVector& input,
     std::ifstream inFile(fileWithInput);
 
     if (getenv("PATH_TO_CHILD") == NULL) {
+        printf("WARNING: PATH_TO_CHILD was not specified.\n");
         exit(0);
     }
     ParentRoutine(getenv("PATH_TO_CHILD"), inFile);
