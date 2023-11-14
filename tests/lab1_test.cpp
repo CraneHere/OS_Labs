@@ -5,25 +5,22 @@
 #include <filesystem>
 #include <fstream>
 #include <memory>
+#include <stdlib.h>
 
 #include "parent.hpp"
 
-namespace fs = std::__fs::filesystem;
+namespace fs = std::filesystem;
 
 using TStringVector = std::vector<std::string>;
-
-const std::string fileWithInput = "i.txt";
-const std::string fileWithOutput1 = "o1.txt";
-const std::string fileWithOutput2 = "o2.txt";
 
 void Check(const TStringVector& input,
            TStringVector expectedOutput1,
            TStringVector expectedOutput2) 
             {
         
-    const std::string fileWithInput = "input.txt";
-    const std::string fileWithOutput1 = "output1.txt";
-    const std::string fileWithOutput2 = "output2.txt";
+    constexpr const char* fileWithInput = "input.txt";
+    constexpr const char* fileWithOutput1 = "output1.txt";
+    constexpr const char* fileWithOutput2 = "output2.txt";
 
     {
         auto inFile = std::ofstream(fileWithInput);
@@ -40,6 +37,7 @@ void Check(const TStringVector& input,
 
     if (getenv("PATH_TO_CHILD") == NULL) {
         printf("WARNING: PATH_TO_CHILD was not specified.\n");
+        exit(0);
     }
     ParentRoutine(getenv("PATH_TO_CHILD"), inFile);
 
@@ -58,11 +56,11 @@ void Check(const TStringVector& input,
         output2.push_back(line);
     }
 
-    ASSERT_TRUE(output1.size() == expectedOutput1.size());
+    ASSERT_EQ(output1.size(), expectedOutput1.size());
     for (size_t i = 0; i < output1.size(); i++) {
         EXPECT_EQ(output1[i], expectedOutput1[i]);
     }
-    ASSERT_TRUE(output2.size() == expectedOutput2.size());
+    ASSERT_EQ(output2.size(), expectedOutput2.size());
     for (size_t i = 0; i < output2.size(); i++) {
         EXPECT_EQ(output2[i], expectedOutput2[i]);
     }

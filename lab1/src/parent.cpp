@@ -9,8 +9,6 @@ void ParentRoutine(const char *pathToChild, std::istream &in) {
 
     pipe(pipe1_fd);
 
-    std::string childPath(pathToChild);
-
     int pid1 = fork();
 
     if (pid1 < 0){
