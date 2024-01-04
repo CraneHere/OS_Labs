@@ -20,8 +20,6 @@ TEST(test1, equalTest) {
 
     double difference = abs(finalChanceForDefault - finalChanceForThreads);
 
-    std::cout << finalChanceForThreads << std::endl;
-
     ASSERT_TRUE(difference < 200);
 }
 
@@ -34,7 +32,17 @@ TEST(test2, equalTest) {
 
     double difference = abs(finalChanceForDefault - finalChanceForThreads);
 
-    std::cout << finalChanceForThreads << std::endl;
+    ASSERT_TRUE(difference < 200);
+}
+
+TEST(test3, equalTest) {
+    CheckForThreads check3;
+    CheckForDefault check4;
+
+    double finalChanceForThreads = check3.monteCheck(43499, 3);
+    double finalChanceForDefault = check4.monteCheck(43499, 1);
+
+    double difference = abs(finalChanceForDefault - finalChanceForThreads);
 
     ASSERT_TRUE(difference < 200);
 }

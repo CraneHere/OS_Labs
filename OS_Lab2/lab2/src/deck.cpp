@@ -1,18 +1,16 @@
 #include "deck.h"
 
-long long necessaryAttemptsThreads = 0;
-
-int findNecessaryAttempts(long long limit, long long necessaryAttempts) {
+int findNecessaryAttempts(long long *limit, long long *necessaryAttempts) {
     std::vector<int> deck;
 
-    for (long long i = 0; i < limit; ++i) {
+    for (long long i = 0; i < *limit; ++i) {
         deck = makeRandomDeck();
         if (deck[50] == deck[51]) {
-            necessaryAttempts += 1;
+            *necessaryAttempts += 1;
         }
     }
 
-    return necessaryAttempts;
+    return *necessaryAttempts;
 }
 
 std::vector<int> makeRandomDeck() {
@@ -28,17 +26,19 @@ std::vector<int> makeRandomDeck() {
 }
 
 void* similaryCardsThreads(void *arg) {
-    long long *attemptsPtr = (long long *) arg;
-    long long limit = *attemptsPtr;
+    Args &ar = *(Args*)arg;
+    long long *attemptsPtr = ar.attemptsForCounting;
+    long long *necessaryAttemptsThreads = ar.necessaryAttempts;
 
-    necessaryAttemptsThreads += findNecessaryAttempts(limit, necessaryAttemptsThreads);
+    necessaryAttemptsThreads += findNecessaryAttempts(attemptsPtr, necessaryAttemptsThreads);
+
+    pthread_exit(0);
 }
 
-int printAttemptsForThreats() {
-    return necessaryAttemptsThreads;
-}
+int similaryCardsDefault(void *arg) {
+    Args &ar = *(Args*)arg;
+    long long *attemptsPtr = ar.attemptsForCounting;
+    long long *necessaryAttemptsThreads = ar.necessaryAttempts;
 
-int similaryCardsDefault(long long allAttempts) {
-    long long necessaryAttemptsDefault = 0;
-    return findNecessaryAttempts(allAttempts, necessaryAttemptsDefault);
+    return findNecessaryAttempts(attemptsPtr, necessaryAttemptsThreads);
 }

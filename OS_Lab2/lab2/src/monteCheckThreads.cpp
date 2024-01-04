@@ -2,27 +2,31 @@
 #include "deck.h"
 
 double CheckForThreads::monteCheck(long long allAttempts, int numThreads) {
-    long long attemptsForCounting = allAttempts / 4;
+    long long attemptsForCounting = allAttempts / numThreads;
+    long long necessaryAttempts = 0;
 
     pthread_t tid[numThreads];
 
-    if (allAttempts % 4 == 0) {
+    if (allAttempts % numThreads == 0) {
         for (int i = 0; i < numThreads; i++) {
-            pthread_create(&tid[i], nullptr, similaryCardsThreads, &attemptsForCounting);
+            Args ar = {&necessaryAttempts, &attemptsForCounting};
+            pthread_create(&tid[i], nullptr, similaryCardsThreads, &ar);
         }
     } else {
-        int remainder = allAttempts % 4;
+        int remainder = allAttempts % numThreads;
         long long remainingAttempts = attemptsForCounting + remainder;
 
         for (int i = 0; i < numThreads - 1; i++) {
-            pthread_create(&tid[i], nullptr, similaryCardsThreads, &attemptsForCounting);
+            Args ar1 = {&necessaryAttempts, &attemptsForCounting};
+            pthread_create(&tid[i], nullptr, similaryCardsThreads, &ar1);
         }
-        pthread_create(&tid[numThreads - 1], nullptr, similaryCardsThreads, &remainingAttempts);
+        Args ar2 = {&necessaryAttempts, &remainingAttempts};
+        pthread_create(&tid[numThreads - 1], nullptr, similaryCardsThreads, &ar2);
     }
 
     for (int i = 0; i < numThreads; i++) {
         pthread_join(tid[i], nullptr);
     }
 
-    return printAttemptsForThreats();
+    return necessaryAttempts;
 }
