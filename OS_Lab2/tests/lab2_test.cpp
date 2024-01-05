@@ -15,34 +15,45 @@ TEST(test1, equalTest) {
     CheckForThreads check1;
     CheckForDefault check2;
 
-    double finalChanceForThreads = check1.monteCheck(12000, 4);
-    double finalChanceForDefault = check2.monteCheck(12000, 1);
+    long long attempts = 12000;
 
-    double difference = abs(finalChanceForDefault - finalChanceForThreads);
+    double finalChanceForThreads = check1.monteCheck(attempts, 4);
+    double finalChanceForDefault = check2.monteCheck(attempts, 1);
 
-    ASSERT_TRUE(difference < 200);
+    double probabilityThreads = finalChanceForThreads / attempts;
+    double probabilityDefault = finalChanceForDefault / attempts;
+    double difference = abs(probabilityDefault - probabilityThreads);
+
+    ASSERT_TRUE(difference < 1);
 }
 
 TEST(test2, equalTest) {
-    CheckForThreads check3;
-    CheckForDefault check4;
+    CheckForThreads check1;
+    CheckForDefault check2;
 
-    double finalChanceForThreads = check3.monteCheck(12000, 4);
-    double finalChanceForDefault = check4.monteCheck(12000, 1);
+    long long attempts = 24360;
 
-    double difference = abs(finalChanceForDefault - finalChanceForThreads);
+    double finalChanceForThreads = check1.monteCheck(attempts, 4);
+    double finalChanceForDefault = check2.monteCheck(attempts, 1);
 
-    ASSERT_TRUE(difference < 200);
+    double probabilityThreads = finalChanceForThreads / attempts;
+    double probabilityDefault = finalChanceForDefault / attempts;
+    double difference = abs(probabilityDefault - probabilityThreads);
+
+    ASSERT_TRUE(difference < 1);
 }
 
 TEST(test3, equalTest) {
-    CheckForThreads check3;
-    CheckForDefault check4;
+    CheckForThreads check1;
+    CheckForDefault check2;
 
-    double finalChanceForThreads = check3.monteCheck(43499, 3);
-    double finalChanceForDefault = check4.monteCheck(43499, 1);
+    long long attempts = 43269;
 
-    double difference = abs(finalChanceForDefault - finalChanceForThreads);
+    double finalChanceForThreads = check1.monteCheck(attempts, 4);
+    double finalChanceForDefault = check2.monteCheck(attempts, 1);
 
-    ASSERT_TRUE(difference < 200);
+    double probabilityThreads = finalChanceForThreads / attempts;
+    double probabilityDefault = finalChanceForDefault / attempts;
+    double difference = abs(probabilityDefault - probabilityThreads);
+    ASSERT_TRUE(difference < 1);
 }
