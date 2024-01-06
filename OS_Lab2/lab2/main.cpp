@@ -9,6 +9,7 @@ int main(int argc, char **argv)
         std::cout << "Not enough arguments" << std::endl;
         return -1;
     }
+    
     CheckForThreads check1;
     CheckForDefault check2;
     CheckForThreads check3;
