@@ -4,5 +4,5 @@
 
 class CheckForDefault : public Check{
 public:
-    double monteCheck(long long allAttempts, int numThreads) override;  
+    double monteCheck(long long allAttempts) override;  
 };

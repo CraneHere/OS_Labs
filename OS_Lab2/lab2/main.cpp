@@ -9,17 +9,17 @@ int main(int argc, char **argv)
         std::cout << "Not enough arguments" << std::endl;
         return -1;
     }
-    
-    CheckForThreads check1;
+
+    //checking the program works with similar numbers
+
+    CheckForThreads check1(4);
     CheckForDefault check2;
-    CheckForThreads check3;
-    CheckForDefault check4;
 
-    double finalChanceForThreads = check1.monteCheck(atoll(argv[1]), atoll(argv[2]));
-    double finalChanceForDefault = check2.monteCheck(atoll(argv[1]), 1);
+    double finalChanceForThreads = check1.monteCheck(atoll(argv[1]));
+    double finalChanceForDefault = check2.monteCheck(atoll(argv[1]));
 
-    double finalChanceForThreads2 = check3.monteCheck(atoll(argv[1]), atoll(argv[2]));
-    double finalChanceForDefault2 = check4.monteCheck(atoll(argv[1]), 1);
+    double finalChanceForThreads2 = check1.monteCheck(atoll(argv[1]));
+    double finalChanceForDefault2 = check2.monteCheck(atoll(argv[1]));
 
     std::cout << finalChanceForThreads << std::endl;
     std::cout << finalChanceForDefault << std::endl;

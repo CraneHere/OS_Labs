@@ -4,5 +4,13 @@
 
 class CheckForThreads : public Check {
 public:
-    double monteCheck(long long allAttempts, int numThreads) override;
+
+    CheckForThreads(int numThreads) {
+        numThreads_ = numThreads;
+    }
+
+    double monteCheck(long long allAttempts) override;
+
+private:
+    int numThreads_;
 };

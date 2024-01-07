@@ -12,73 +12,55 @@
 #include "monteCheckThreads.h"
 #include "monteCheckDefault.h"
 
-TEST(test1, equalTest) {
-    CheckForThreads check1;
+int findDifference(long long attempts) {
+    CheckForThreads check1(4);
     CheckForDefault check2;
 
-    long long attempts = 12000;
-
-    double finalChanceForThreads = check1.monteCheck(attempts, 4);
-    double finalChanceForDefault = check2.monteCheck(attempts, 1);
+    double finalChanceForThreads = check1.monteCheck(attempts);
+    double finalChanceForDefault = check2.monteCheck(attempts);
 
     double probabilityThreads = finalChanceForThreads / attempts;
     double probabilityDefault = finalChanceForDefault / attempts;
     double difference = abs(probabilityDefault - probabilityThreads);
 
-    ASSERT_TRUE(difference < 1);
+    return difference;
+}
+
+TEST(test1, equalTest) {
+    long long attempts = 12000;
+
+    int difference = findDifference(attempts);
+
+    EXPECT_TRUE(difference < 1);
 }
 
 TEST(test2, equalTest) {
-    CheckForThreads check1;
-    CheckForDefault check2;
-
     long long attempts = 24360;
 
-    double finalChanceForThreads = check1.monteCheck(attempts, 4);
-    double finalChanceForDefault = check2.monteCheck(attempts, 1);
+    int difference = findDifference(attempts);
 
-    double probabilityThreads = finalChanceForThreads / attempts;
-    double probabilityDefault = finalChanceForDefault / attempts;
-    double difference = abs(probabilityDefault - probabilityThreads);
-
-    ASSERT_TRUE(difference < 1);
+    EXPECT_TRUE(difference < 1);
 }
 
 TEST(test3, equalTest) {
-    CheckForThreads check1;
-    CheckForDefault check2;
-
     long long attempts = 43269;
 
-    double finalChanceForThreads = check1.monteCheck(attempts, 4);
-    double finalChanceForDefault = check2.monteCheck(attempts, 1);
+    int difference = findDifference(attempts);
 
-    double probabilityThreads = finalChanceForThreads / attempts;
-    double probabilityDefault = finalChanceForDefault / attempts;
-    double difference = abs(probabilityDefault - probabilityThreads);
-
-    ASSERT_TRUE(difference < 1);
+    EXPECT_TRUE(difference < 1);
 }
 
 TEST(test4, equalTest) {
-    CheckForThreads check1;
-    CheckForDefault check2;
-
     long long attempts = 100000;
 
-    double finalChanceForThreads = check1.monteCheck(attempts, 4);
-    double finalChanceForDefault = check2.monteCheck(attempts, 1);
-
-    double probabilityThreads = finalChanceForThreads / attempts;
-    double probabilityDefault = finalChanceForDefault / attempts;
-    double difference = abs(probabilityDefault - probabilityThreads);
+    int difference = findDifference(attempts);
     
-    ASSERT_TRUE(difference < 1);
+    EXPECT_TRUE(difference < 1);
 }
 
 TEST(test5, PerfomanceTest) {
     auto getAvgTime = [](int threadCount) {
-        CheckForThreads check;
+        CheckForThreads check(threadCount);
 
         long long attempts = 100000;
 
@@ -88,7 +70,7 @@ TEST(test5, PerfomanceTest) {
 
         for(int i = 0; i < runsCount; ++i) {
             auto begin = std::chrono::high_resolution_clock::now();
-            check.monteCheck(attempts, threadCount);
+            check.monteCheck(attempts);
             auto end = std::chrono::high_resolution_clock::now();
             avg += std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count();
         }

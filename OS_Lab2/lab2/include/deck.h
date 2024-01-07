@@ -14,7 +14,7 @@ struct Args {
 
 class Check {
 public:
-    virtual double monteCheck(long long allAttempts, int numThreads) = 0;
+    virtual double monteCheck(long long allAttempts) = 0;
 };
 
 std::vector<int> makeRandomDeck();
