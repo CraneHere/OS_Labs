@@ -15,7 +15,6 @@ FetchContent_MakeAvailable(googletest)
 add_library(GTest::GTest INTERFACE IMPORTED)
 target_link_libraries(GTest::GTest INTERFACE gtest_main)
 
-
 add_executable(main src/parent.cpp src/utils.cpp main.cpp)
 add_executable(child src/child.cpp src/utils.cpp)
 

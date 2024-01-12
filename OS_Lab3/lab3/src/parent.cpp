@@ -9,7 +9,6 @@ void ParentRoutine(const char *pathToChild, std::istream &in) {
 
     int cnt1 = 0;
     int cnt2 = 0;
-
     const char *name1 = "SharedMemory1";
     const char *name2 = "SharedMemory2";
 

@@ -32,7 +32,6 @@ int main(int argc, char **argv) {
 
     std::string filename(argv[1]);
     std::ofstream file(filename);
-
     std::stringstream shmem(memptr1);
 
     for (std::string line; std::getline(shmem, line); ) {

@@ -6,6 +6,7 @@ sem_t* CreateSemaphore(const char *name, int value) {
         perror("Couldn't open the semaphore");
         exit(EXIT_FAILURE);
     }
+    
     return semptr;   
 }
 
@@ -16,6 +17,7 @@ int CreateShm(const char* name) {
         exit(-1);
     }
     ftruncate(fd, 1024);
+
     return fd;
 }
 
@@ -25,6 +27,7 @@ char* MapSharedMemory(const int size, int fd) {
         perror("Error with file mapping");
         exit(EXIT_FAILURE);
     }
+
     return memptr;
 }
 
@@ -35,5 +38,6 @@ int CreateFork() {
         std::cerr << "Failed fork()\n";
         exit(-2);
     }
+
     return pid;
 }

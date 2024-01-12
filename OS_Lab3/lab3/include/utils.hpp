@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <semaphore.h>
 
-sem_t* CreateSemaphore(const char *name, int value);
+sem_t *CreateSemaphore(const char *name, int value);
 int CreateShm(const char* name);
 char* MapSharedMemory(const int size, int fd);
 int CreateFork();

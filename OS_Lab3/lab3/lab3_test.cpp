@@ -10,7 +10,6 @@
 #include "parent.hpp"
 
 namespace fs = std::filesystem;
-
 using TStringVector = std::vector<std::string>;
 
 void Check(const TStringVector& input,
