@@ -2,9 +2,6 @@ cmake_minimum_required(VERSION 3.20)
 
 project(OS_LABS C CXX)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 enable_testing()
 
 if (MSVC)
@@ -15,5 +12,6 @@ endif()
 
 include(FindThreads)
 
-add_subdirectory(lab1)
+add_subdirectory(OS_Lab1/lab1)
+add_subdirectory(OS_Lab4/lab4)
 add_subdirectory(tests)
