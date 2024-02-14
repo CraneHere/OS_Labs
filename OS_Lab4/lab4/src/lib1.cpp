@@ -1,7 +1,7 @@
 #include "lib.h"
 #include "utils.h"
 
-float SinIntegral(float a, float b, float e) {
+extern "C" float SinIntegral(float a, float b, float e) {
     float integral = 0.0;
     e = (b - a) / NUM_POINTS;
     for (int i = 0; i <= NUM_POINTS; ++i) {
@@ -10,7 +10,7 @@ float SinIntegral(float a, float b, float e) {
     return integral;
 }
 
-char* Translation(long x) {
+extern "C" char* Translation(long x) {
     if (x < 0) {
         return nullptr;
     }
