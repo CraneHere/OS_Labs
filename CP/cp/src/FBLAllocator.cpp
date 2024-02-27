@@ -1,8 +1,8 @@
-#include "include/FBLAllocator.hpp"
+#include "FBLAllocator.hpp"
 
 FBLAllocator::FBLAllocator(void_pointer realMemory, size_type memorySize)
 {
-    freeBlocksList = reinterpret_cast<BlockHeader*>(realMemory + sizeof(FBLAllocator));
+    freeBlocksList = reinterpret_cast<BlockHeader*>(sizeof(FBLAllocator));
     freeBlocksList->size = memorySize - sizeof(FBLAllocator) - sizeof(BlockHeader);
     freeBlocksList->next = nullptr;
 }

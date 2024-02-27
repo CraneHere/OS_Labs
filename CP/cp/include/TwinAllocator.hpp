@@ -1,40 +1,42 @@
 #pragma once
 
-#include <exception>
 #include <iostream>
-#include <cmath>
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdbool.h>
-#include <sys/mman.h>
+#include <list>
 #include <vector>
+#include <set>
+#include <map>
+#include <unordered_set>
+#include <unordered_map>
+#include <algorithm>
+#include <stack>
 
-using void_pointer = void*;
-using size_type = std::size_t;
-using difference_type = std::ptrdiff_t;
-using propagate_on_container_move_assignment = std::true_type;
-using is_always_equal = std::true_type;
+namespace buddy_alloc {
 
-struct Page {
-    size_t blockSize;
-    bool isFree;
+class Allocator {
+private:
+
+    size_t N, size;
+    char* start;
+    // freeBlocks : (n) -> (set of char* of size 2^n)
+    std::vector< std::unordered_set<char*> > freeBlocks;
+    // sizes : (block) -> (n) where size(block) = 2^n
+    std::unordered_map<char*, size_t> sizes;
+
+    // return pow
+    std::vector<size_t> PowOf2;
+    size_t Pow2(size_t n);
+    static size_t ClosestPow2(size_t n);
+    static char* GetFirstAndDelete(std::unordered_set<char*>& s);
+
+    void TryMerge(char* block, size_t p);
+
+public:
+
+    Allocator(size_t _size);
+    ~Allocator();
+    void* Alloc(size_t blockSize);
+    void Free(void *block);
+
 };
 
-class TwinAllocator {
-    private:
-        std::vector<std::vector<Page*>> freeLists;
-        size_t maxSize;
-
-        Page* getBuddy(Page*);
-        void removeBlock(Page*);
-    
-    public:
-        TwinAllocator() = delete;
-        TwinAllocator(size_t);
-
-        virtual ~TwinAllocator();
-
-        void_pointer alloc(size_type);
-        void free(void_pointer);
-};
+}
