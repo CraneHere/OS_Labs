@@ -15,5 +15,5 @@ endif()
 
 include(FindThreads)
 
-add_subdirectory(lab1)
-add_subdirectory(tests)
+add_subdirectory(OS_Lab5-7)
+#add_subdirectory(tests)

@@ -5,7 +5,7 @@
 #include <string>
 #include <optional>
 
-#include <zmq.hpp>
+#include <zmq.h>
 
 int Bind(zmq::socket_t *socket, int id);
 void Unbind(zmq::socket_t *socket, int port);
