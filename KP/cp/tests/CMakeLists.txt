@@ -1,9 +1,9 @@
-cmake_minimum_required(VERSION 3.27)
-
 include(FetchContent)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+cmake_minimum_required(VERSION 3.27)
 
 FetchContent_Declare(
         googletest
@@ -15,7 +15,5 @@ FetchContent_MakeAvailable(googletest)
 add_library(GTest::GTest INTERFACE IMPORTED)
 target_link_libraries(GTest::GTest INTERFACE gtest_main)
 
-add_executable(lab1_test ../lab1/src/parent.cpp lab1_test.cpp)
-target_include_directories(lab1_test PRIVATE ../lab1/include)
-
-target_link_libraries(lab1_test PRIVATE GTest::GTest)
+add_executable(cp_test cp_test.cpp)
+target_link_libraries(cp_test PRIVATE GTest::GTest alloc1 alloc2)
