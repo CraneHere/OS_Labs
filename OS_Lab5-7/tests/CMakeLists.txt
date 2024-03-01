@@ -1,25 +1,9 @@
-include(FetchContent)
-cmake_minimum_required(VERSION 3.27)
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS})
 
-FetchContent_Declare(
-        googletest
-        GIT_REPOSITORY https://github.com/google/googletest.git
-        GIT_TAG        release-1.11.0
-)
+include_directories(${INCLUDE_DIR};/Users/Shy/Documents/vcpkg/installed/arm64-osx/include)
 
-FetchContent_MakeAvailable(googletest)
-add_library(GTest::GTest INTERFACE IMPORTED)
-target_link_libraries(GTest::GTest INTERFACE gtest_main)
-
-
-
-set(CMAKE_CXX_FLAGS "-lzmq")
-add_compile_options(-Wno-error=deprecated-declarations -Wdeprecated-declarations)
-
-add_executable(lab5-7_test lab5-7_test.cpp ../lab5-7/src/node.cpp ../lab5-7/src/socket.cpp)
-target_link_libraries(lab5-7_test PRIVATE GTest::GTest)
-target_include_directories(lab5-7_test PRIVATE ../lab5-7/include)
-
-target_link_libraries(lab5-7_test PRIVATE zmq)
-
-add_test(lab5-7_test lab5-7_test)
+add_executable(lab5_7_test lab5_7_test.cpp ../lab5_7/include/topology.h ../lab5_7/include/node.h ../lab5_7/include/socket.h)
+target_link_libraries(lab5_7_test GTest::gtest GTest::gtest_main /Users/Shy/Documents/vcpkg/installed/arm64-osx/lib/libzmq.a zmqsocket zmqnode nodetopo)
+target_include_directories(lab5_7_test PRIVATE ../lab5_7/include)
+add_test(lab5_7_test lab5_7_test)

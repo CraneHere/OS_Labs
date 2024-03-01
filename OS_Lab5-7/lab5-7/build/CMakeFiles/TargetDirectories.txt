@@ -1,4 +1,0 @@
-/Users/Shy/Documents/OS_Labs/OS_Lab5-7/lab5-7/build/CMakeFiles/control.dir
-/Users/Shy/Documents/OS_Labs/OS_Lab5-7/lab5-7/build/CMakeFiles/calculate.dir
-/Users/Shy/Documents/OS_Labs/OS_Lab5-7/lab5-7/build/CMakeFiles/edit_cache.dir
-/Users/Shy/Documents/OS_Labs/OS_Lab5-7/lab5-7/build/CMakeFiles/rebuild_cache.dir
