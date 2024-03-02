@@ -5,31 +5,26 @@
 #include <unordered_map>
 #include <algorithm>
 
-using void_pointer = void*;
-using size_type = std::size_t;
-using difference_type = std::ptrdiff_t;
-using propagate_on_container_move_assignment = std::true_type;
-using is_always_equal = std::true_type;
-
 namespace fb_alloc {
 
-struct BlockHeader {
-    size_t _size;
-    BlockHeader* _next;
+struct Block {
+    size_t size;
+    char *start;
 };
 
-class Allocator{
-  private:
-    BlockHeader* _free_blocks_list;
+class Allocator {
+private:
+    size_t size;
+    char *start, *end;
+    std::list<Block> blocks;
+    std::unordered_map<void*, size_t> sizes;
+public:
 
-  public:
-    Allocator() = delete;
-    Allocator(size_t);
-
-    virtual ~Allocator();
-
+    Allocator(size_t _size);
+    ~Allocator();
     void* Alloc(size_t blockSize);
     void Free(void *block);
+
 };
 
 }

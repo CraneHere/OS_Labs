@@ -1,0 +1,7 @@
+output1.txt
+output2.txt
+abc
+bebe
+nyaa
+lo lo
+

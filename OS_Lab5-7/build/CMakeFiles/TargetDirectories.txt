@@ -1,0 +1,15 @@
+/Users/Shy/Documents/OS_Labs/OS_Lab5-7/build/CMakeFiles/test.dir
+/Users/Shy/Documents/OS_Labs/OS_Lab5-7/build/CMakeFiles/edit_cache.dir
+/Users/Shy/Documents/OS_Labs/OS_Lab5-7/build/CMakeFiles/rebuild_cache.dir
+/Users/Shy/Documents/OS_Labs/OS_Lab5-7/build/lab5_7/CMakeFiles/zmqsocket.dir
+/Users/Shy/Documents/OS_Labs/OS_Lab5-7/build/lab5_7/CMakeFiles/zmqnode.dir
+/Users/Shy/Documents/OS_Labs/OS_Lab5-7/build/lab5_7/CMakeFiles/nodetopo.dir
+/Users/Shy/Documents/OS_Labs/OS_Lab5-7/build/lab5_7/CMakeFiles/client.dir
+/Users/Shy/Documents/OS_Labs/OS_Lab5-7/build/lab5_7/CMakeFiles/server.dir
+/Users/Shy/Documents/OS_Labs/OS_Lab5-7/build/lab5_7/CMakeFiles/test.dir
+/Users/Shy/Documents/OS_Labs/OS_Lab5-7/build/lab5_7/CMakeFiles/edit_cache.dir
+/Users/Shy/Documents/OS_Labs/OS_Lab5-7/build/lab5_7/CMakeFiles/rebuild_cache.dir
+/Users/Shy/Documents/OS_Labs/OS_Lab5-7/build/tests/CMakeFiles/lab5_7_test.dir
+/Users/Shy/Documents/OS_Labs/OS_Lab5-7/build/tests/CMakeFiles/test.dir
+/Users/Shy/Documents/OS_Labs/OS_Lab5-7/build/tests/CMakeFiles/edit_cache.dir
+/Users/Shy/Documents/OS_Labs/OS_Lab5-7/build/tests/CMakeFiles/rebuild_cache.dir

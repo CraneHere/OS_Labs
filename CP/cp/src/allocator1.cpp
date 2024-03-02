@@ -2,67 +2,75 @@
 
 namespace fb_alloc {
 
-Allocator::Allocator(size_t memory_size)
-{
-    _free_blocks_list = reinterpret_cast<BlockHeader*>((size_t)memory_size + sizeof(Allocator));
-    _free_blocks_list->_size = memory_size - sizeof(Allocator) - sizeof(BlockHeader);
-    _free_blocks_list->_next = nullptr;
+Allocator::Allocator(size_t _size) : size(_size) {
+    start = new char[size];
+    end = (start + size);
+    blocks.push_back({size, start});
 }
 
-Allocator::~Allocator()
-{
-    BlockHeader* cur_block = this->_free_blocks_list;
-
-    while (cur_block) {
-        //BlockHeader* to_delete = cur_block;
-        cur_block = cur_block->_next;
-        //to_delete = nullptr;
-    }
-
-    this->_free_blocks_list = nullptr;
+Allocator::~Allocator() {
+    delete[] start;
 }
 
-void_pointer Allocator::Alloc(size_type new_block_size)
-{
-    BlockHeader* prev_block = nullptr;
-    BlockHeader* cur_block = this->_free_blocks_list;
-
-    size_type adjusted_size = new_block_size + sizeof(BlockHeader);
-
-    while (cur_block) {
-        if (cur_block->_size >= adjusted_size) {
-            if (cur_block->_size >= adjusted_size + sizeof(BlockHeader)) {
-                BlockHeader* new_block = reinterpret_cast<BlockHeader*>(reinterpret_cast<int8_t*>(cur_block) + adjusted_size);
-
-                new_block->_size = cur_block->_size - adjusted_size - sizeof(BlockHeader);
-                new_block->_next = cur_block->_next;
-                cur_block->_next = new_block;
-                cur_block->_size = adjusted_size;
-            }
-
-            if (prev_block) {
-                prev_block->_next = cur_block->_next;
-            } else {
-                this->_free_blocks_list = cur_block->_next;
-            }
-
-            return reinterpret_cast<int8_t*>(cur_block) + sizeof(BlockHeader);
+void* Allocator::Alloc(size_t blockSize) {
+    auto block = blocks.end();
+    for (auto it = blocks.begin(); it != blocks.end(); it++) {
+        Block cur = *it;
+        if (cur.size >= blockSize) {
+            block = it;
+            break;
         }
-
-        prev_block = cur_block;
-        cur_block = cur_block->_next;
     }
-
-    return nullptr;
+    if (block == blocks.end()) {
+        throw std::bad_alloc();
+    }
+    block->size -= blockSize;
+    block->start += blockSize;
+    void* result = static_cast<void*>(block->start - blockSize);
+    sizes[result] = blockSize;
+    return result;
 }
-
-void Allocator::Free(void_pointer block)
-{
-    if (block == nullptr) return;
-
-    BlockHeader* header = reinterpret_cast<BlockHeader*>(static_cast<int8_t*>(block) - sizeof(BlockHeader));
-    header->_next = this->_free_blocks_list;
-    this->_free_blocks_list = header;
+void Allocator::Free(void *block) {
+    if (sizes.find(block) == sizes.end()) {
+        throw std::logic_error("(fb allocator) Bad pointer for free.");
+    }
+    size_t size = sizes[block];
+    std::list<Block>::iterator backMerge = blocks.end(), forwardMerge = blocks.end();
+    for (auto it = blocks.begin(); it != blocks.end(); it++) {
+        size_t sz = it->size;
+        char* start = it->start, *end = it->start + sz;
+        if (end == static_cast<char*>(block)) {
+            backMerge = it;
+        }
+        if (start == (static_cast<char*>(block) + size)) {
+            forwardMerge = it;
+        }
+    }
+    if (backMerge != blocks.end() && forwardMerge != blocks.end()) {
+        Block newBlock = { size + backMerge->size + forwardMerge->size, backMerge->start};
+        forwardMerge++;
+        auto it = blocks.erase(backMerge, forwardMerge);
+        blocks.insert(it, newBlock);
+    } else if (backMerge != blocks.end()) {
+        Block newBlock = { size + backMerge->size, backMerge->start };
+        auto it = blocks.erase(backMerge);
+        blocks.insert(it, newBlock);
+    } else if (forwardMerge != blocks.end()) {
+        Block newBlock = {size + forwardMerge->size, static_cast<char*>(block) };
+        auto it = blocks.erase(forwardMerge);
+        blocks.insert(it, newBlock);
+    } else {
+        Block newBlock = { size, static_cast<char*>(block) };
+        auto place = blocks.end();
+        for (auto it = blocks.begin(); it != blocks.end(); it++) {
+            if (it->start > (static_cast<char*>(block))) {
+                place = it;
+                break;
+            }
+        }
+        blocks.insert(place, newBlock);
+    }
+    sizes.erase(block);
 }
 
 }
