@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libzmqnode.a CMakeFiles/zmqnode.dir/src/node.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libzmqnode.a

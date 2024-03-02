@@ -47,7 +47,7 @@ TEST(Lab5Tests, ExecTest) {
     auto cstr = std::getenv("PATH_TO_SERVER");
     ASSERT_TRUE(cstr);
     pid_t pid = fork();
-    if (pid == -1) {
+    if (pid == 99) {
         std::perror("fork");
         std::exit(EXIT_FAILURE);
     }
